@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 360" role="presentation" aria-hidden="true">
+  <defs>
+    <linearGradient id="edge" x1="210" y1="30" x2="210" y2="330" gradientUnits="userSpaceOnUse">
+      <stop offset="0"   stop-color="#B39BFF" stop-opacity=".85"/>
+      <stop offset="1"   stop-color="#7C4DFF" stop-opacity=".25"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="18%" r="55%">
+      <stop offset="0" stop-color="#7C4DFF" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#7C4DFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="210" cy="70" r="170" fill="url(#halo)"/>
+
+  <!-- Tier 1: root -> four branches -->
+  <g fill="none" stroke="url(#edge)" stroke-width="1.6">
+    <path d="M210 46C210 120 70 110 60 186"/>
+    <path d="M210 46C210 120 155 120 150 186"/>
+    <path d="M210 46C210 120 265 120 270 186"/>
+    <path d="M210 46C210 120 350 110 360 186"/>
+  </g>
+
+  <!-- Tier 2: branches -> leaves -->
+  <g fill="none" stroke="#7C4DFF" stroke-opacity=".38" stroke-width="1.4">
+    <path d="M150 186C150 240 120 250 118 292"/>
+    <path d="M150 186C150 240 182 250 184 292"/>
+    <path d="M270 186C270 240 238 250 236 292"/>
+    <path d="M270 186C270 240 302 250 304 292"/>
+    <path d="M210 196v112"/>
+  </g>
+
+  <!-- Nodes -->
+  <circle cx="210" cy="46" r="8"  fill="#0B0B0F" stroke="#B39BFF" stroke-width="2.2"/>
+  <circle cx="210" cy="46" r="16" fill="none"    stroke="#7C4DFF" stroke-opacity=".45" stroke-width="1.2"/>
+
+  <g fill="#0B0B0F" stroke="#7C4DFF" stroke-width="2">
+    <circle cx="60"  cy="186" r="6.5"/>
+    <circle cx="150" cy="186" r="6.5"/>
+    <circle cx="270" cy="186" r="6.5"/>
+    <circle cx="360" cy="186" r="6.5"/>
+  </g>
+
+  <g fill="#0B0B0F" stroke="#7C4DFF" stroke-opacity=".6" stroke-width="1.8">
+    <circle cx="118" cy="296" r="5"/>
+    <circle cx="184" cy="296" r="5"/>
+    <circle cx="210" cy="312" r="5"/>
+    <circle cx="236" cy="296" r="5"/>
+    <circle cx="304" cy="296" r="5"/>
+  </g>
+
+  <!-- Faint grid dots for texture -->
+  <g fill="#B39BFF" fill-opacity=".18">
+    <circle cx="40"  cy="300" r="1.6"/>
+    <circle cx="80"  cy="330" r="1.6"/>
+    <circle cx="380" cy="300" r="1.6"/>
+    <circle cx="340" cy="332" r="1.6"/>
+    <circle cx="30"  cy="120" r="1.6"/>
+    <circle cx="392" cy="126" r="1.6"/>
+  </g>
+</svg>

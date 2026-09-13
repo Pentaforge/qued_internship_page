@@ -1,0 +1,7 @@
+# Local tooling state (browse daemon, agent scratch)
+.gstack/
+
+# OS cruft
+Thumbs.db
+desktop.ini
+.DS_Store
