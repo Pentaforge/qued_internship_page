@@ -25,6 +25,7 @@ assets/logo.png       lockup used in the nav and footer (generated)
 assets/favicon.png    mark only, for the browser tab (generated)
 assets/node-graph.svg hero ornament
 assets/qr-apply.svg   QR to the application form
+assets/QUED-Metrics-Internship-Brochure.pdf   the downloadable brochure (2.3 MB)
 tools/build-logo.py   regenerates logo.png + favicon.png from the JPEG
 ```
 
@@ -73,6 +74,11 @@ Publishing a wrong answer here costs more trust than having no FAQ at all.
 
 **Colors and type** — `css/tokens.css` only. The violet is `--violet`; everything
 derives from it.
+
+**The brochure** — `assets/QUED-Metrics-Internship-Brochure.pdf`, offered in three
+places: the closing CTA, under the "At a glance" table, and in the mobile menu. If
+you replace it, keep the filename or update all three `href`s, and update the
+"2.3 MB" size labels next to them.
 
 **The application link** — `https://forms.gle/FZE1u6SCtA6q9dEq7` appears in four
 places in `index.html` (nav, mobile menu, hero, CTA). If it changes, also

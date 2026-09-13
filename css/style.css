@@ -125,6 +125,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .btn--ghost:hover { border-color: var(--violet-edge); background: var(--violet-dim); }
 
+.btn__meta {
+  font-size: .625rem;
+  letter-spacing: .08em;
+  color: var(--faint);
+}
+.btn--solid .btn__meta { color: rgba(255,255,255,.7); }
+
+.btn__dl { transition: transform var(--t-fast) var(--ease); }
+.btn:hover .btn__dl { transform: translateY(2px); }
+
 .btn__arrow { transition: transform var(--t-fast) var(--ease); }
 .btn:hover .btn__arrow { transform: translateX(3px); }
 
@@ -202,6 +212,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .menu__links a:hover { color: var(--violet-soft); }
 
 .menu .btn { align-self: flex-start; }
+
+.menu__dl {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  align-self: flex-start;
+  padding: .7rem 1.1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+.menu__dl:hover { border-color: var(--violet-edge); background: var(--violet-dim); }
 
 .menu__foot {
   margin-top: auto;
@@ -602,6 +628,21 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 600;
 }
 
+.spec__note {
+  margin-top: var(--s-4);
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.spec__meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-left: .4rem;
+  white-space: nowrap;
+}
+
 /* ---------- Accordion ---------- */
 .acc { margin-top: var(--s-6); border-top: 1px solid var(--line); }
 .acc__item { border-bottom: 1px solid var(--line); }
@@ -689,6 +730,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   color: var(--muted);
   margin-block: var(--s-3) var(--s-5);
 }
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
 .cta__url {
   margin-top: var(--s-4);
   font-family: var(--font-mono);
