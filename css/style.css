@@ -15,6 +15,7 @@ html {
 
 body {
   background: var(--bg);
+  -webkit-tap-highlight-color: rgba(124, 77, 255, .18);
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--fs-body);
@@ -24,7 +25,9 @@ body {
 }
 
 img, svg { display: block; max-width: 100%; height: auto; }
-a { color: inherit; text-decoration: none; }
+[hidden] { display: none !important; }
+a { color: inherit; text-decoration: none; touch-action: manipulation; }
+button { touch-action: manipulation; }
 ul { list-style: none; padding: 0; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 
@@ -126,13 +129,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn--ghost:hover { border-color: var(--violet-edge); background: var(--violet-dim); }
 
 .btn__meta {
-  font-size: .625rem;
+  font-size: .6875rem;
   letter-spacing: .08em;
   color: var(--faint);
 }
 .btn--solid .btn__meta { color: rgba(255,255,255,.7); }
 
 .btn__dl { transition: transform var(--t-fast) var(--ease); }
+.btn__share { transition: transform var(--t-fast) var(--ease); }
+.btn:hover .btn__share { transform: translate(2px, -2px); }
 .btn:hover .btn__dl { transform: translateY(2px); }
 
 .btn__arrow { transition: transform var(--t-fast) var(--ease); }
@@ -164,15 +169,41 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   gap: var(--s-4);
 }
 
-.nav__logo { flex-shrink: 0; }
+.nav__logo { flex-shrink: 0; display: flex; align-items: center; min-height: 44px; }
 .nav__logo img { width: 146px; }
 
-.nav__links { display: none; }
-.nav__cta   { display: none; }
+.nav__links   { display: none; }
+.nav__cta     { display: none; }
+.nav__actions { display: none; }
+
+.nav__dl {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .62rem 1.05rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease),
+              background-color var(--t-fast) var(--ease);
+}
+.nav__dl span { transition: transform var(--t-fast) var(--ease); }
+.nav__dl:hover {
+  color: var(--text);
+  border-color: var(--violet-edge);
+  background: var(--violet-dim);
+}
+.nav__dl:hover span { transform: translateY(2px); }
 
 .nav__burger {
   margin-left: auto;
-  width: 42px; height: 42px;
+  width: 44px; height: 44px;
   display: grid;
   align-content: center;
   justify-items: end;
@@ -214,6 +245,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .menu .btn { align-self: flex-start; }
 
 .menu__dl {
+  font-family: var(--font-mono);
+  text-align: left;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: .5rem;
@@ -241,7 +275,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  padding-top: clamp(7rem, 18vw, 10rem);
+  padding-top: clamp(6rem, 17vw, 10rem);
   padding-bottom: var(--s-6);
   overflow: hidden;
 }
@@ -295,7 +329,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-3);
-  margin-top: var(--s-5);
+  margin-top: var(--s-4);
 }
 
 .hero__art { display: none; }
@@ -321,6 +355,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   scrollbar-width: none;
 }
 .flowline::-webkit-scrollbar { display: none; }
+
+/* the row scrolls past the right edge on narrow screens — fade the cut so it
+   reads as "more to the right" instead of an arbitrary crop */
+.hero__flow { position: relative; }
+.hero__flow::after {
+  content: "";
+  position: absolute;
+  right: 0; bottom: .5rem;
+  width: 56px; height: 1.6em;
+  background: linear-gradient(90deg, transparent, var(--bg));
+  pointer-events: none;
+}
 .flowline span { white-space: nowrap; }
 .flowline i { color: var(--violet); font-style: normal; }
 
@@ -774,9 +820,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin-top: var(--s-3);
   max-width: 34ch;
 }
-.footer__col { display: grid; gap: .55rem; align-content: start; }
+.footer__col { display: grid; gap: 0; align-content: start; }
 .footer__col .eyebrow { margin-bottom: .25rem; }
-.footer__col a { color: var(--muted); font-size: var(--fs-small); }
+.footer__col a {
+  color: var(--muted);
+  font-size: var(--fs-small);
+  padding-block: .6rem;          /* 44px tap target on touch devices */
+  margin-block: -.05rem;
+}
 .footer__col a:hover { color: var(--violet-soft); }
 
 .footer__bar {
@@ -803,6 +854,55 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition-delay: var(--reveal-delay, 0ms);
 }
 .reveal.is-in { opacity: 1; transform: none; }
+
+
+/* ============================================================
+   Phone-specific tuning (<= 719px)
+   ============================================================ */
+@media (max-width: 719px) {
+  /* A QR code cannot be scanned by the phone displaying it — it is pure
+     dead space here. The Apply button right above it does the same job. */
+  .cta__qr { display: none; }
+
+  /* body copy up to 16px: 15px is tiring on a small screen */
+  :root { --fs-small: 1rem; }
+  .card__desc, .ticks li { font-size: 1rem; }
+
+  /* trim the vertical rhythm so the page is ~1 screen shorter */
+  :root { --section-y: clamp(3.75rem, 11vw, 5rem); }
+
+  /* Hero has two actions of different rank — stack them full width. */
+  .hero__actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  /* Closing CTA has three. Three identical stacked pills flatten the
+     hierarchy, so: primary full width, the two secondaries paired below it. */
+  .cta__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-2);
+  }
+  .cta__actions .btn {
+    justify-content: center;
+    padding-inline: .75rem;
+  }
+  .cta__actions .btn--solid { grid-column: 1 / -1; }
+  /* share button removed (no native share sheet) -> brochure takes the full row */
+  .cta__actions .btn--ghost:nth-child(2):last-child { grid-column: 1 / -1; }
+  /* no room for "PDF · 2.3 MB" at half width — the menu and the
+     "At a glance" link still carry the file size */
+  .cta__actions .btn__meta { display: none; }
+
+  /* the buttons already say where they go; the raw URL is clutter on a phone */
+  .cta__url { display: none; }
+
+  /* notched phones: keep the fixed nav and menu clear of the cutout */
+  .nav__inner { padding-left: max(var(--gutter), env(safe-area-inset-left));
+                padding-right: max(var(--gutter), env(safe-area-inset-right)); }
+  .menu { padding-bottom: max(var(--s-6), env(safe-area-inset-bottom)); }
+}
 
 /* ============================================================
    >= 720px
@@ -878,6 +978,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .nav__links a:hover { color: var(--text); }
 
   .nav__cta { display: inline-flex; }
+  .nav__actions { display: inline-flex; align-items: center; gap: var(--s-2); }
   .nav__logo img { width: 170px; }
 
   .hero__inner {

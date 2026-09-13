@@ -25,6 +25,7 @@ assets/logo.png       lockup used in the nav and footer (generated)
 assets/favicon.png    mark only, for the browser tab (generated)
 assets/node-graph.svg hero ornament
 assets/qr-apply.svg   QR to the application form
+assets/og-image.png   1200x630 link-preview card (WhatsApp, Twitter, LinkedIn)
 assets/QUED-Metrics-Internship-Brochure.pdf   the downloadable brochure (2.3 MB)
 tools/build-logo.py   regenerates logo.png + favicon.png from the JPEG
 ```
@@ -80,6 +81,21 @@ places: the closing CTA, under the "At a glance" table, and in the mobile menu. 
 you replace it, keep the filename or update all three `href`s, and update the
 "2.3 MB" size labels next to them.
 
+**The share message and URL** — top of `js/main.js`: `SHARE_URL`, `SHARE_TITLE`,
+`SHARE_TEXT`. The Share buttons (closing CTA + mobile menu) are **phone-only**: they
+are `hidden` in the HTML and JS only reveals them when `navigator.share` exists AND
+the device reports `(pointer: coarse)`. Both conditions are needed — macOS Safari
+supports `navigator.share` on laptops, where a "share to WhatsApp" button makes no
+sense. On anything else JS removes the element outright rather than hiding it, so
+the CTA grid reflows to two buttons with no empty slot.
+
+**Link previews** — `assets/og-image.png` is what WhatsApp/Twitter/LinkedIn show when
+someone forwards the link. The `og:image` tag uses an **absolute** URL
+(`https://quedmetrics.com/assets/og-image.png`) because relative paths do not work
+for previews. If the domain changes, update that tag and `SHARE_URL` together.
+To regenerate the card, see git history for `_og.html` — it renders in the browser
+at 1200x630 using the real brand fonts.
+
 **The application link** — `https://forms.gle/FZE1u6SCtA6q9dEq7` appears in four
 places in `index.html` (nav, mobile menu, hero, CTA). If it changes, also
 regenerate the QR:
@@ -103,6 +119,31 @@ git init && git add . && git commit -m "Initial site"
 ```
 
 Point `quedmetrics.com` at the host once it's live.
+
+## Mobile
+
+The phone layout is tuned in a `@media (max-width: 719px)` block near the bottom of
+`style.css`. Decisions worth knowing before you change them:
+
+- **The QR code is hidden on phones.** A QR cannot be scanned by the device showing
+  it, so it was pure dead space; the Apply button directly above does the same job.
+  It still appears from 720px up, where someone may scan it with a second device.
+- **Button hierarchy differs by section.** The hero has two actions, stacked full
+  width. The closing CTA has three: primary full width with the two secondaries
+  paired on the row below, because three identical stacked pills read as a flat list
+  with no primary. The `forms.gle` URL and the `2.3 MB` size label are hidden there
+  on phones for room — the mobile menu and the "At a glance" link still show the size.
+- **Tap targets are >= 44px** (Apple HIG / WCAG 2.5.5). Footer links get vertical
+  padding rather than margin so the hit area grows without changing the visual gap.
+  Inline links inside sentences are exempt under WCAG and are left alone.
+- **Body copy is 16px on phones** (15px elsewhere) and section padding is tighter.
+- **Safe-area insets** keep the nav and menu clear of notches and home indicators.
+- `logo.png` is generated at 600px wide: exactly 3x the largest place it is shown,
+  so it stays sharp on retina without shipping a needlessly heavy file.
+
+Total first load on mobile is about **100 KB**. The brochure PDF (2.3 MB) is only
+fetched when someone taps a download link, and `og-image.png` is never fetched by the
+page at all — it is only read by WhatsApp/Twitter/LinkedIn when a link is shared.
 
 ## Notes
 

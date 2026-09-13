@@ -65,7 +65,7 @@ canvas.alpha_composite(word, (mark.width + GAP_L + DIV_W + GAP_R,
 dx = mark.width + GAP_L
 ImageDraw.Draw(canvas).rectangle([dx, 17, dx + DIV_W - 1, 352], fill=VIOLET)
 
-TARGET = 900
+TARGET = 600
 canvas.resize((TARGET, round(ch * TARGET / cw)), Image.LANCZOS)       .save(os.path.join(OUT, 'logo.png'), optimize=True)
 
 # Favicon: mark alone, centred on a padded transparent square.

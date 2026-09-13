@@ -7,6 +7,16 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---- Share config ------------------------------------------------------
+     SHARE_URL is the address students will land on. Change this one line if
+     the site ever moves.                                                    */
+  var SHARE_URL   = 'https://quedmetrics.com';
+  var SHARE_TITLE = 'Academic Intelligence Internship — QUED Metrics';
+  var SHARE_TEXT  =
+    'Academic Intelligence Internship at QUED Metrics — open to all KTU branches.\n\n' +
+    'Work on curriculum research, content development and validation for a real ' +
+    'AI-driven learning product. Remote/hybrid, certificate on completion.';
+
   /* ---------- 1. Nav scroll state ---------- */
   var nav = document.getElementById('nav');
   var ticking = false;
@@ -104,7 +114,28 @@
     });
   }
 
-  /* ---------- 5. Pipeline stage sequence ---------- */
+  /* ---------- 5. Share ----------
+     Only exists where the device can actually open a native share sheet:
+     navigator.share AND a touch-primary pointer. That rules out laptops and
+     desktops (including macOS Safari, which supports navigator.share but has
+     no reason to show a "share to WhatsApp" button). Unsupported devices get
+     the element removed outright rather than hidden, so the CTA grid reflows
+     to two buttons cleanly. */
+  var shareButtons = document.querySelectorAll('.js-share');
+  var canShare = typeof navigator.share === 'function' &&
+                 window.matchMedia('(pointer: coarse)').matches;
+
+  Array.prototype.forEach.call(shareButtons, function (btn) {
+    if (!canShare) { btn.remove(); return; }
+
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL })
+        .catch(function () { /* user dismissed the sheet — not an error */ });
+    });
+  });
+
+  /* ---------- 6. Pipeline stage sequence ---------- */
   var stagesEl = document.getElementById('stages');
 
   if (stagesEl) {
