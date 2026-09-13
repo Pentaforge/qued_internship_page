@@ -10,12 +10,33 @@
   /* ---- Share config ------------------------------------------------------
      SHARE_URL is the address students will land on. Change this one line if
      the site ever moves.                                                    */
+  var NL = String.fromCharCode(10);
+
   var SHARE_URL   = 'https://quedmetrics.com';
   var SHARE_TITLE = 'Academic Intelligence Internship — QUED Metrics';
-  var SHARE_TEXT  =
-    'Academic Intelligence Internship at QUED Metrics — open to all KTU branches.\n\n' +
-    'Work on curriculum research, content development and validation for a real ' +
-    'AI-driven learning product. Remote/hybrid, certificate on completion.';
+  var SHARE_TEXT  = [
+    '🎓 Academic Intelligence Internship — QUED Metrics',
+    '',
+    'Build the academic knowledge system behind an AI-driven learning product made for KTU students.',
+    '',
+    "Not a materials-collection internship — you'll create, organise and validate the content a real product runs on.",
+    '',
+    "WHAT YOU'LL DO",
+    '📚 Research the KTU syllabus from trusted academic sources',
+    '✍️ Turn it into structured notes, explanations and Q&A',
+    '🔍 Validate every resource before a student sees it',
+    '🔧 Work with Git, GitHub and real review cycles',
+    '',
+    'WHAT YOU GET',
+    '🏅 Internship certificate',
+    '💼 Portfolio-worthy experience on a real product',
+    '🚀 Performance-based opportunities at QUED Metrics',
+    '',
+    '✅ Open to ALL KTU engineering branches',
+    '💻 Remote / Hybrid',
+    '',
+    'Apply here 👇'
+  ].join(NL);
 
   /* ---------- 1. Nav scroll state ---------- */
   var nav = document.getElementById('nav');
@@ -130,11 +151,9 @@
   var isTouch      = window.matchMedia('(pointer: coarse)').matches;
   var hasNative    = typeof navigator.share === 'function';
 
-  var BLANK_LINE = String.fromCharCode(10, 10);
-
   function waLink() {
     return 'https://wa.me/?text=' +
-           encodeURIComponent(SHARE_TEXT + BLANK_LINE + SHARE_URL);
+           encodeURIComponent(SHARE_TEXT + NL + NL + SHARE_URL);
   }
 
   Array.prototype.forEach.call(shareButtons, function (btn) {
