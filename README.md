@@ -16,12 +16,43 @@ python -m http.server 8000
 ## Structure
 
 ```
-index.html          all page content
-css/tokens.css      color, type, spacing variables — edit here to restyle
-css/style.css       layout and components
-js/main.js          nav, mobile menu, FAQ accordion, scroll reveals
-assets/             logo, hero graphic, QR code, favicon (all SVG)
+index.html            all page content
+css/tokens.css        color, type, spacing variables — edit here to restyle
+css/style.css         layout and components
+js/main.js            nav, mobile menu, FAQ accordion, scroll reveals
+assets/quedlogo.jpeg  the official logo — source of truth, not used by the page
+assets/logo.png       lockup used in the nav and footer (generated)
+assets/favicon.png    mark only, for the browser tab (generated)
+assets/node-graph.svg hero ornament
+assets/qr-apply.svg   QR to the application form
+tools/build-logo.py   regenerates logo.png + favicon.png from the JPEG
 ```
+
+## The logo
+
+`assets/quedlogo.jpeg` is the official artwork and the source of truth. The page
+does not use it directly: it is a JPEG on solid black, so it would show a black
+box wherever the background behind it isn't black — most visibly over the hero's
+violet glow.
+
+`tools/build-logo.py` keys that black out to real transparency and writes the two
+files the page actually loads:
+
+```bash
+pip install Pillow
+python tools/build-logo.py
+```
+
+- **`logo.png`** — mark + divider + QUED/METRICS. The strapline is deliberately
+  not baked in: in the source art it is ~1/6 the height of the QUED letters, so at
+  any web size it renders as an unreadable smudge. The footer prints it as real
+  text beside the copyright instead.
+- **`favicon.png`** — the mark alone, centred on a padded transparent square.
+
+If you ever get a proper **vector** of the logo (`.svg`, `.ai`, `.eps`), use it
+instead — it will be sharper at every size and a fraction of the file size. Drop
+it in `assets/`, point the two `<img>` tags in `index.html` at it, and delete the
+generated PNGs.
 
 ## Before publishing — CONFIRM the FAQ
 

@@ -155,7 +155,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .nav__logo { flex-shrink: 0; }
-.nav__logo img { width: 132px; }
+.nav__logo img { width: 146px; }
 
 .nav__links { display: none; }
 .nav__cta   { display: none; }
@@ -720,7 +720,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: grid;
   gap: var(--s-5);
 }
-.footer__brand img { width: 150px; }
+.footer__brand img { width: 200px; }
 .footer__brand p {
   color: var(--muted);
   font-size: var(--fs-small);
@@ -831,7 +831,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .nav__links a:hover { color: var(--text); }
 
   .nav__cta { display: inline-flex; }
-  .nav__logo img { width: 150px; }
+  .nav__logo img { width: 170px; }
 
   .hero__inner {
     display: grid;
