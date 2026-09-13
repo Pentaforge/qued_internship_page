@@ -115,23 +115,49 @@
   }
 
   /* ---------- 5. Share ----------
-     Only exists where the device can actually open a native share sheet:
-     navigator.share AND a touch-primary pointer. That rules out laptops and
-     desktops (including macOS Safari, which supports navigator.share but has
-     no reason to show a "share to WhatsApp" button). Unsupported devices get
-     the element removed outright rather than hidden, so the CTA grid reflows
-     to two buttons cleanly. */
+     Three-way, because native sharing is not available everywhere:
+
+       navigator.share  -> OS share sheet (all apps). Chrome/Safari on mobile.
+                           NOTE: requires HTTPS; it is undefined over plain http.
+       touch, no share  -> WhatsApp deep link. Firefox for Android only gained
+                           navigator.share in v155, so most Firefox users land
+                           here. wa.me works in every mobile browser.
+       anything else    -> element removed (laptops/desktops).
+
+     macOS Safari supports navigator.share on laptops, which is why the pointer
+     test is needed as well as the feature test. */
   var shareButtons = document.querySelectorAll('.js-share');
-  var canShare = typeof navigator.share === 'function' &&
-                 window.matchMedia('(pointer: coarse)').matches;
+  var isTouch      = window.matchMedia('(pointer: coarse)').matches;
+  var hasNative    = typeof navigator.share === 'function';
+
+  var BLANK_LINE = String.fromCharCode(10, 10);
+
+  function waLink() {
+    return 'https://wa.me/?text=' +
+           encodeURIComponent(SHARE_TEXT + BLANK_LINE + SHARE_URL);
+  }
 
   Array.prototype.forEach.call(shareButtons, function (btn) {
-    if (!canShare) { btn.remove(); return; }
+    if (!isTouch) { btn.remove(); return; }
+
+    var label = btn.querySelector('.js-share-label');
+    var inMenu = !!btn.closest('.menu');
+
+    if (!hasNative && label) {
+      // Say where it actually goes rather than promising a generic share sheet.
+      label.textContent = inMenu ? 'Share on WhatsApp' : 'WhatsApp';
+    }
 
     btn.hidden = false;
+
     btn.addEventListener('click', function () {
-      navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL })
-        .catch(function () { /* user dismissed the sheet — not an error */ });
+      if (hasNative) {
+        navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL })
+          .catch(function () { /* user dismissed the sheet — not an error */ });
+        return;
+      }
+      var w = window.open(waLink(), '_blank', 'noopener');
+      if (!w) window.location.href = waLink();   // popup blocked
     });
   });
 

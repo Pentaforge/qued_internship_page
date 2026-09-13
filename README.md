@@ -83,11 +83,21 @@ you replace it, keep the filename or update all three `href`s, and update the
 
 **The share message and URL** — top of `js/main.js`: `SHARE_URL`, `SHARE_TITLE`,
 `SHARE_TEXT`. The Share buttons (closing CTA + mobile menu) are **phone-only**: they
-are `hidden` in the HTML and JS only reveals them when `navigator.share` exists AND
-the device reports `(pointer: coarse)`. Both conditions are needed — macOS Safari
-supports `navigator.share` on laptops, where a "share to WhatsApp" button makes no
-sense. On anything else JS removes the element outright rather than hiding it, so
-the CTA grid reflows to two buttons with no empty slot.
+are `hidden` in the HTML and JS decides three ways from what the device supports:
+
+| Device | Behaviour |
+| --- | --- |
+| Touch + `navigator.share` | OS share sheet, label "Share" |
+| Touch, no `navigator.share` | WhatsApp deep link (`wa.me`), label "WhatsApp" |
+| Laptop / desktop (fine pointer) | Element removed entirely |
+
+The WhatsApp branch exists because **Firefox for Android only gained
+`navigator.share` in v155** — most Firefox users have no native share sheet. The
+pointer test is needed on top of the feature test because macOS Safari supports
+`navigator.share` on laptops, where the button makes no sense.
+
+**`navigator.share` requires HTTPS.** Over plain `http://` it is undefined even in
+Chrome, so testing on a bare IP address will silently fall through to WhatsApp.
 
 **Link previews** — `assets/og-image.png` is what WhatsApp/Twitter/LinkedIn show when
 someone forwards the link. The `og:image` tag uses an **absolute** URL
