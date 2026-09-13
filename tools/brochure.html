@@ -1,0 +1,355 @@
+<meta charset="UTF-8">
+<title>QUED Metrics — Academic Intelligence Internship</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   QUED Metrics — Academic Intelligence Internship brochure
+   Source of truth: tools/brochure.html  ->  assets/...pdf
+   Regenerate with tools/build-brochure.sh
+   =========================================================== */
+@page { size: A4; margin: 0; }
+
+:root{
+  --bg:#0B0B0F; --surface:#15151C; --line:rgba(255,255,255,.09);
+  --text:#F4F4F6; --muted:#A2A2AE; --faint:#6E6E7C;
+  --violet:#7C4DFF; --violet-soft:#B39BFF; --violet-dim:rgba(124,77,255,.14);
+  --violet-edge:rgba(124,77,255,.38);
+  --display:"Chakra Petch","Segoe UI",sans-serif;
+  --body:"Inter","Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0}
+html,body{background:var(--bg)}
+body{font-family:var(--body);color:var(--text);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+.page{
+  position:relative; width:210mm; height:297mm; overflow:hidden;
+  background:var(--bg); padding:18mm 16mm 14mm;
+  display:flex; flex-direction:column;
+  page-break-after:always; break-after:page;
+}
+.page:last-child{page-break-after:auto;break-after:auto}
+
+/* glows */
+.g{position:absolute;pointer-events:none}
+.g1{top:-14%;right:-20%;width:150mm;height:150mm;
+  background:radial-gradient(circle,rgba(124,77,255,.42) 0%,rgba(124,77,255,.10) 42%,transparent 68%)}
+.g2{bottom:-16%;left:-22%;width:130mm;height:130mm;
+  background:radial-gradient(circle,rgba(124,77,255,.26) 0%,transparent 66%)}
+.body-z{position:relative;z-index:1;display:flex;flex-direction:column;flex:1}
+
+/* running head / foot */
+.rh{position:relative;z-index:1;display:flex;justify-content:space-between;
+  align-items:center;padding-bottom:5mm;border-bottom:1px solid var(--line);margin-bottom:9mm}
+.rh img{width:34mm}
+.rh span{font-family:var(--mono);font-size:7pt;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--violet-soft)}
+.rf{position:relative;z-index:1;margin-top:auto;padding-top:5mm;
+  border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.rf p{font-size:7.5pt;color:var(--faint)}
+.rf b{font-family:var(--mono);font-size:9pt;color:var(--violet-soft);font-weight:400}
+
+/* type */
+.eyebrow{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--violet-soft);margin-bottom:4mm}
+.eyebrow.dim{color:var(--faint)}
+h1{font-family:var(--display);font-weight:700;font-size:44pt;line-height:1.02;
+  letter-spacing:-.02em;text-transform:uppercase}
+h1 .a{color:var(--violet-soft)}
+h2{font-family:var(--display);font-weight:600;font-size:24pt;line-height:1.15;letter-spacing:-.01em}
+h3{font-family:var(--display);font-weight:600;font-size:13pt}
+p{font-size:10pt;line-height:1.6;color:var(--muted)}
+.lede{font-size:11pt;color:var(--muted);margin-top:3mm;max-width:150mm}
+.rule{width:22mm;height:1.4mm;background:var(--violet);border-radius:9mm;margin:6mm 0}
+
+/* cover */
+.cover h1{font-size:52pt}
+.cover .sub{font-size:12pt;color:var(--muted);max-width:110mm;margin-top:2mm}
+.art{position:absolute;right:12mm;top:108mm;width:56mm;opacity:.9;z-index:0}
+
+/* flow strip */
+.flow{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted)}
+.flow i{color:var(--violet);font-style:normal;margin:0 2mm}
+.flow b{color:var(--text);font-weight:500}
+
+/* quote + cards */
+.quote{margin-top:6mm;padding:5mm 6mm;border-left:1mm solid var(--violet);
+  background:var(--violet-dim);border-radius:0 2mm 2mm 0;
+  font-family:var(--display);font-size:12pt;font-weight:500;line-height:1.4;color:var(--text)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-top:8mm}
+.trio div{padding:5mm;border:1px solid var(--line);border-radius:3mm;background:var(--surface)}
+.trio span{display:block;font-family:var(--mono);font-size:14pt;color:var(--violet-edge);margin-bottom:2mm}
+.trio h3{font-size:11pt}
+
+.band{position:relative;overflow:hidden;padding:7mm 8mm;border-radius:4mm;
+  border:1px solid var(--line);
+  background:radial-gradient(120% 180% at 100% 0%,rgba(124,77,255,.34) 0%,transparent 58%),var(--surface)}
+.band p{font-family:var(--display);font-size:12.5pt;font-weight:500;line-height:1.45;color:var(--text)}
+.band p.flow{font-family:var(--mono);font-size:7.5pt;font-weight:400;letter-spacing:.16em;color:var(--muted)}
+
+/* work streams */
+.stream{position:relative;padding:6mm 6mm 6mm 24mm;border:1px solid var(--line);
+  border-radius:4mm;background:var(--surface);margin-top:6mm}
+.stream .n{position:absolute;left:6mm;top:5mm;font-family:var(--display);
+  font-size:26pt;font-weight:700;color:rgba(255,255,255,.10);line-height:1}
+.stream .k{font-family:var(--mono);font-size:7pt;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--violet-soft)}
+.stream h3{margin-top:1mm}
+.stream p{margin-top:2mm;font-size:9.5pt}
+ul{list-style:none;padding:0;margin-top:3mm;display:grid;gap:1.6mm}
+li{position:relative;padding-left:5mm;font-size:9.5pt;color:var(--muted);line-height:1.45}
+li::before{content:"";position:absolute;left:0;top:1.8mm;width:1.6mm;height:1.6mm;
+  border-radius:.4mm;background:var(--violet)}
+
+/* gains + callout */
+.gains{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:7mm}
+.gains div{padding:5mm;border:1px solid var(--line);border-radius:3mm;background:var(--surface)}
+.gains .wide{grid-column:1/-1}
+.gains i{display:block;width:9mm;height:1mm;background:var(--violet);border-radius:9mm;margin-bottom:3mm}
+.gains p{font-size:9.5pt;margin-top:1.5mm}
+.callout{margin-top:7mm;padding:6mm;border:1px solid var(--line);border-left:1mm solid var(--violet);
+  border-radius:0 3mm 3mm 0;background:var(--violet-dim)}
+.callout p{font-family:var(--display);font-size:13pt;font-weight:600;color:var(--text);line-height:1.35}
+
+/* spec table */
+.spec{margin-top:7mm;border-top:1px solid var(--line)}
+.spec .row{display:grid;grid-template-columns:45mm 1fr;gap:6mm;align-items:baseline;
+  padding:4mm 0;border-bottom:1px solid var(--line)}
+.spec .k{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--faint)}
+.spec .v{font-family:var(--display);font-size:12pt;font-weight:600;color:var(--text)}
+
+/* apply block */
+.apply{display:flex;gap:10mm;align-items:flex-end;margin-top:10mm}
+.apply h2{font-family:var(--display);font-size:34pt;font-weight:700;text-transform:uppercase;line-height:1}
+.apply .u{font-family:var(--mono);font-size:9.5pt;color:var(--violet-soft);margin-top:4mm;word-break:break-all}
+.qr{width:38mm;padding:3mm;background:#fff;border-radius:3mm}
+.qrwrap{text-align:center}
+.qrwrap p{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--faint);margin-top:2mm}
+.contact{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm;margin-top:10mm;
+  padding-top:6mm;border-top:1px solid var(--line)}
+.contact .k{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:1.5mm}
+.contact .v{font-size:10pt;color:var(--text)}
+</style>
+
+<!-- ============ 1. COVER ============ -->
+<section class="page cover">
+  <div class="g g1"></div><div class="g g2"></div>
+  <div class="rh">
+    <img src="../assets/logo.png" alt="QUED Metrics">
+    <span>Academic Team &nbsp;//&nbsp; Internship Program</span>
+  </div>
+  <img class="art" src="../assets/node-graph.svg" alt="">
+  <div class="body-z" style="justify-content:center">
+    <h1>Academic<br><span class="a">Intelligence</span><br>Internship</h1>
+    <div class="rule"></div>
+    <p class="sub">Build the academic knowledge system behind an AI-driven
+      learning product made for KTU students.</p>
+  </div>
+  <div class="rf" style="flex-direction:column;align-items:stretch;gap:4mm">
+    <div>
+      <p class="eyebrow dim" style="margin-bottom:2mm">How the work flows</p>
+      <p class="flow">Research<i>&rsaquo;</i><b>Structure</b><i>&rsaquo;</i>Create<i>&rsaquo;</i><b>Review</b><i>&rsaquo;</i>Validate<i>&rsaquo;</i><b>Commit</b><i>&rsaquo;</i>Build</p>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <b>quedmetrics.com</b><b>quedmetrics@gmail.com</b>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. WHO WE ARE ============ -->
+<section class="page">
+  <div class="g g1"></div>
+  <div class="rh"><img src="../assets/logo.png" alt=""><span>Who we are</span></div>
+  <div class="body-z">
+    <p class="eyebrow">QUED Metrics</p>
+    <h2>Building intelligent solutions<br>for the future of learning.</h2>
+    <p class="lede">QUED Metrics is an AI-driven technology startup building intelligent
+      academic solutions that transform the way students learn, understand, and interact
+      with educational content.</p>
+    <p class="lede">We combine technology, structured academic knowledge, and
+      research-driven workflows to create smarter learning experiences for KTU students.</p>
+    <div class="quote">Our vision is simple: make academic knowledge more organized,
+      accessible, and meaningful.</div>
+
+    <div style="margin-top:12mm">
+      <p class="eyebrow">Build with us</p>
+      <h2 style="font-size:19pt">Academic Intelligence Internship Programme</h2>
+      <p class="lede">Join the Academic Team at QUED Metrics and become part of a
+        technology initiative focused on reimagining academic learning for KTU students.</p>
+    </div>
+
+    <div class="band" style="margin-top:8mm">
+      <p class="eyebrow" style="margin-bottom:3mm">This is not a materials-collection internship</p>
+      <p>You'll contribute to creating, organizing, validating and improving the
+        academic knowledge that powers a real-world education technology product.</p>
+    </div>
+
+    <p class="eyebrow" style="margin-top:10mm">What we combine</p>
+    <div class="trio" style="margin-top:0">
+      <div><span>01</span><h3>Technology</h3></div>
+      <div><span>02</span><h3>Structured academic knowledge</h3></div>
+      <div><span>03</span><h3>Research-driven workflows</h3></div>
+    </div>
+  </div>
+  <div class="rf"><p>QUED Metrics &middot; Academic Intelligence Internship</p><b>02</b></div>
+</section>
+
+<!-- ============ 3. THE WORK (01-02) ============ -->
+<section class="page">
+  <div class="g g1"></div>
+  <div class="rh"><img src="../assets/logo.png" alt=""><span>What you'll work on</span></div>
+  <div class="body-z">
+    <p class="eyebrow">The work</p>
+    <h2>What you'll work on</h2>
+    <p class="lede">Four connected streams. Each one feeds the academic knowledge base
+      that the product is built on.</p>
+
+    <div class="stream">
+      <span class="n">01</span>
+      <p class="k">Foundation</p>
+      <h3>Academic Research</h3>
+      <p>Research curriculum-aligned academic resources and build a reliable knowledge foundation.</p>
+      <ul>
+        <li>Understand KTU syllabus and module structure.</li>
+        <li>Research concepts from trusted academic sources.</li>
+        <li>Organize subject-wise learning resources.</li>
+      </ul>
+    </div>
+
+    <div class="stream">
+      <span class="n">02</span>
+      <p class="k">Content</p>
+      <h3>Knowledge Development</h3>
+      <p>Convert complex academic content into structured, student-friendly resources.</p>
+      <ul>
+        <li>Prepare module-wise notes.</li>
+        <li>Create concise concept explanations.</li>
+        <li>Develop question-and-answer resources.</li>
+        <li>Structure content according to the syllabus.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rf"><p>QUED Metrics &middot; Academic Intelligence Internship</p><b>03</b></div>
+</section>
+
+<!-- ============ 4. THE WORK (03-04) + FLOW ============ -->
+<section class="page">
+  <div class="g g2"></div>
+  <div class="rh"><img src="../assets/logo.png" alt=""><span>What you'll work on</span></div>
+  <div class="body-z">
+    <div class="stream" style="margin-top:0">
+      <span class="n">03</span>
+      <p class="k">Quality</p>
+      <h3>Academic Validation</h3>
+      <p>Ensure every resource meets quality and syllabus standards before it reaches a student.</p>
+      <ul>
+        <li>Identify missing topics.</li>
+        <li>Verify syllabus alignment.</li>
+        <li>Remove duplicate or incorrect content.</li>
+        <li>Improve overall content quality.</li>
+      </ul>
+    </div>
+
+    <div class="stream">
+      <span class="n">04</span>
+      <p class="k">Process</p>
+      <h3>Team Collaboration</h3>
+      <p>Work inside a professional technology workflow, not an informal group chat.</p>
+      <ul>
+        <li>Documentation and review process.</li>
+        <li>Collaborative content development.</li>
+        <li>Git and GitHub version control.</li>
+        <li>Structured project management.</li>
+      </ul>
+    </div>
+
+    <div class="band" style="margin-top:10mm">
+      <p class="eyebrow" style="margin-bottom:3mm">How the work flows</p>
+      <p class="flow" style="margin-bottom:5mm">Research<i>&rsaquo;</i><b>Structure</b><i>&rsaquo;</i>Create<i>&rsaquo;</i><b>Review</b><i>&rsaquo;</i>Validate<i>&rsaquo;</i><b>Commit</b><i>&rsaquo;</i>Build</p>
+      <p style="font-size:10pt;color:var(--muted);border-top:1px solid var(--line);padding-top:4mm">
+        Every contribution strengthens a growing academic knowledge system designed for students.<br>
+        <b style="color:var(--text);font-family:var(--body)">Your research. Your analysis. Your attention to detail.</b>
+      </p>
+    </div>
+  </div>
+  <div class="rf"><p>QUED Metrics &middot; Academic Intelligence Internship</p><b>04</b></div>
+</section>
+
+<!-- ============ 5. WHO CAN APPLY + GAIN ============ -->
+<section class="page">
+  <div class="g g1"></div>
+  <div class="rh"><img src="../assets/logo.png" alt=""><span>Who can apply</span></div>
+  <div class="body-z">
+    <p class="eyebrow">Eligibility</p>
+    <h2>Who can apply?</h2>
+    <p class="lede">We're looking for KTU students who are:</p>
+    <ul style="margin-top:5mm">
+      <li style="font-size:11pt">Curious about technology and AI.</li>
+      <li style="font-size:11pt">Detail-oriented and responsible.</li>
+      <li style="font-size:11pt">Comfortable working in a collaborative team.</li>
+      <li style="font-size:11pt">Willing to learn professional workflows.</li>
+    </ul>
+    <div class="callout"><p>Open to students from all KTU engineering branches.</p></div>
+
+    <p class="eyebrow" style="margin-top:12mm">What you'll gain</p>
+    <h2 style="font-size:20pt">What you take away</h2>
+    <div class="gains">
+      <div><i></i><h3>AI &amp; Education Exposure</h3>
+        <p>Learn how academic knowledge is transformed into intelligent learning systems.</p></div>
+      <div><i></i><h3>Research Experience</h3>
+        <p>Work on curriculum research and structured content development.</p></div>
+      <div><i></i><h3>Professional Workflow</h3>
+        <p>Hands-on experience with documentation, review cycles, and Git/GitHub.</p></div>
+      <div><i></i><h3>Real Product Experience</h3>
+        <p>Contribute to a technology product designed for real students.</p></div>
+      <div class="wide"><i></i><h3>Portfolio &amp; Recognition</h3>
+        <p>An internship certificate, portfolio-worthy experience, and performance-based
+          opportunities within QUED Metrics.</p></div>
+    </div>
+  </div>
+  <div class="rf"><p>QUED Metrics &middot; Academic Intelligence Internship</p><b>05</b></div>
+</section>
+
+<!-- ============ 6. AT A GLANCE + APPLY ============ -->
+<section class="page">
+  <div class="g g1"></div><div class="g g2"></div>
+  <div class="rh"><img src="../assets/logo.png" alt=""><span>Internship at a glance</span></div>
+  <div class="body-z">
+    <div class="spec" style="margin-top:0">
+      <div class="row"><span class="k">Programme</span><span class="v">Academic Intelligence Internship</span></div>
+      <div class="row"><span class="k">Organization</span><span class="v">QUED Metrics</span></div>
+      <div class="row"><span class="k">Domain</span><span class="v">AI &times; Education &times; Academic Research</span></div>
+      <div class="row"><span class="k">Eligibility</span><span class="v">KTU Students — All Branches</span></div>
+      <div class="row"><span class="k">Mode</span><span class="v">Remote / Hybrid</span></div>
+      <div class="row"><span class="k">Certificate</span><span class="v">Yes</span></div>
+    </div>
+
+    <div class="apply">
+      <div style="flex:1">
+        <p class="eyebrow">Ready to build with us?</p>
+        <h2 class="apply-t" style="font-family:var(--display);font-size:34pt;font-weight:700;text-transform:uppercase;line-height:1">Apply Now</h2>
+        <p style="margin-top:3mm;font-size:11pt">Research. Create. Validate. Build.</p>
+        <p class="u">forms.gle/FZE1u6SCtA6q9dEq7</p>
+      </div>
+      <div class="qrwrap">
+        <img class="qr" src="../assets/qr-apply.svg" alt="">
+        <p>Scan to apply</p>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div><p class="k">Website</p><p class="v">quedmetrics.com</p></div>
+      <div><p class="k">Email</p><p class="v">quedmetrics@gmail.com</p></div>
+      <div><p class="k">Phone</p><p class="v">+91 62827 96373</p></div>
+    </div>
+  </div>
+  <div class="rf">
+    <p style="font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase">
+      Quantified Understanding. Enhanced Decisions.</p><b>06</b>
+  </div>
+</section>

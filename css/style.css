@@ -102,6 +102,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: center;
   gap: .55em;
   padding: .7rem 1.25rem;
+  border: 1px solid transparent;   /* keeps solid and ghost the same box height */
   border-radius: var(--r-pill);
   font-family: var(--font-mono);
   font-size: .75rem;
@@ -123,7 +124,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn--solid:hover { background: var(--violet-hi); transform: translateY(-2px); }
 
 .btn--ghost {
-  border: 1px solid var(--line-strong);
+  border-color: var(--line-strong);
   color: var(--text);
 }
 .btn--ghost:hover { border-color: var(--violet-edge); background: var(--violet-dim); }
@@ -176,30 +177,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav__cta     { display: none; }
 .nav__actions { display: none; }
 
-.nav__dl {
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  padding: .62rem 1.05rem;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-pill);
-  font-family: var(--font-mono);
-  font-size: .72rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-  transition: color var(--t-fast) var(--ease),
-              border-color var(--t-fast) var(--ease),
-              background-color var(--t-fast) var(--ease);
-}
-.nav__dl span { transition: transform var(--t-fast) var(--ease); }
-.nav__dl:hover {
-  color: var(--text);
-  border-color: var(--violet-edge);
-  background: var(--violet-dim);
-}
-.nav__dl:hover span { transform: translateY(2px); }
 
 .nav__burger {
   margin-left: auto;
@@ -978,7 +955,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .nav__links a:hover { color: var(--text); }
 
   .nav__cta { display: inline-flex; }
-  .nav__actions { display: inline-flex; align-items: center; gap: var(--s-2); }
+  .nav__actions { display: inline-flex; align-items: center; gap: var(--s-3); }
   .nav__logo img { width: 170px; }
 
   .hero__inner {

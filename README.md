@@ -26,7 +26,9 @@ assets/favicon.png    mark only, for the browser tab (generated)
 assets/node-graph.svg hero ornament
 assets/qr-apply.svg   QR to the application form
 assets/og-image.png   1200x630 link-preview card (WhatsApp, Twitter, LinkedIn)
-assets/QUED-Metrics-Internship-Brochure.pdf   the downloadable brochure (2.3 MB)
+assets/QUED-Metrics-Internship-Brochure.pdf   the downloadable brochure (~1 MB, generated)
+tools/brochure.html   brochure source — edit this, not the PDF
+tools/build-brochure.sh  regenerates the brochure PDF
 tools/build-logo.py   regenerates logo.png + favicon.png from the JPEG
 ```
 
@@ -76,10 +78,20 @@ Publishing a wrong answer here costs more trust than having no FAQ at all.
 **Colors and type** — `css/tokens.css` only. The violet is `--violet`; everything
 derives from it.
 
-**The brochure** — `assets/QUED-Metrics-Internship-Brochure.pdf`, offered in three
-places: the closing CTA, under the "At a glance" table, and in the mobile menu. If
-you replace it, keep the filename or update all three `href`s, and update the
-"2.3 MB" size labels next to them.
+**The brochure** — the PDF is **generated**, not hand-made. Edit
+`tools/brochure.html` (plain HTML/CSS, same design tokens as the site) and run:
+
+```bash
+bash tools/build-brochure.sh
+```
+
+It renders 6 A4 pages through headless Chrome. The Examination Intelligence stream
+is deliberately absent and the remaining four are numbered 01-04, matching the site.
+
+Download links live in five places: hero, desktop nav, mobile menu, "At a glance",
+and the closing CTA. They all point at the same file, so replacing it needs no code
+change **unless the file size changes** — the "1 MB" labels are hardcoded in
+`index.html` (search for `MB`).
 
 **The share message and URL** — top of `js/main.js`: `SHARE_URL`, `SHARE_TITLE`,
 `SHARE_TEXT`. The Share buttons (closing CTA + mobile menu) are **phone-only**: they
